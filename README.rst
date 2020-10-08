@@ -1,3 +1,23 @@
+EOL
+==============
+
+.. image:: https://github.com/eol-uchile/edx-proctoring/workflows/Python%20application/badge.svg
+    :target: https://github.com/eol-uchile/edx-proctoring/actions
+    :alt: EolTests
+
+EOL Configuration
+-------------
+
+To get the student progress on specific block types, in your lms.yml add the following::
+
+    PROCTORING_SETTINGS: 
+        block_types_filter: block_type1, block_type2, block_type3
+
+In your lms/production.py ::
+
+    PROCTORING_SETTINGS = ENV_TOKENS.get('PROCTORING_SETTINGS', PROCTORING_SETTINGS)
+
+
 edx-proctoring
 ==============
 
