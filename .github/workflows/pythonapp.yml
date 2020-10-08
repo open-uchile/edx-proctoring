@@ -11,4 +11,4 @@ jobs:
     - uses: actions/checkout@v1
     - name: Run Tests
       run: |
-        docker run -it --rm -v $(pwd):/app python:3.5 /bin/bash -c "cd /app && pip install -r requirements/test.txt && py.test --cov=edx_proctoring --cov-report=html --ds=test_settings edx_proctoring/tests/test_eol.py"
+        docker run --rm -v $(pwd):/app python:3.5 /bin/bash -c "cd /app && pip install -r requirements/test.txt && py.test --cov=edx_proctoring --cov-report=html --ds=test_settings edx_proctoring/tests/test_eol.py"
