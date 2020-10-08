@@ -517,6 +517,7 @@ class StudentProctoredExamAttemptCollection(ProctoredAPIView):
 
             proctoring_settings = getattr(settings, 'PROCTORING_SETTINGS', {})
             low_threshold_pct = proctoring_settings.get('low_threshold_pct', .2)
+            block_types_filter = proctoring_settings.get('block_types_filter', '')
             critically_low_threshold_pct = proctoring_settings.get('critically_low_threshold_pct', .05)
 
             low_threshold = int(low_threshold_pct * float(attempt['allowed_time_limit_mins']) * 60)
@@ -555,7 +556,9 @@ class StudentProctoredExamAttemptCollection(ProctoredAPIView):
                     'edx_proctoring:proctored_exam.attempt',
                     args=[attempt['id']]
                 ),
-
+                'content_id': exam['content_id'],
+                'block_types_filter': block_types_filter,
+                'username': request.user.username
             }
 
             if provider:
