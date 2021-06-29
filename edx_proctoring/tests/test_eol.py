@@ -1,4 +1,7 @@
 # pylint: disable=too-many-lines, invalid-name
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
 """
 All eol tests
 """
@@ -6,20 +9,26 @@ All eol tests
 from __future__ import absolute_import
 
 import json
+
 import ddt
+
+from django.contrib.auth import get_user_model
 from django.urls import reverse
-from django.contrib.auth.models import User
-from django.test.client import Client
+
 from edx_proctoring.models import ProctoredExam
-from .utils import LoggedInTestCase
-from .test_services import MockCreditService, MockInstructorService
 from edx_proctoring.runtime import set_runtime_service
+
+from .test_services import MockCreditService, MockInstructorService
+from .utils import LoggedInTestCase
+
+User = get_user_model()
+
 
 @ddt.ddt
 class TestEOLStudentProctoredExamAttempt(LoggedInTestCase):
 
     def setUp(self):
-        super(TestEOLStudentProctoredExamAttempt, self).setUp()
+        super().setUp()
         self.user.is_staff = True
         self.user.save()
         self.second_user = User(username='tester2', email='tester2@test.com')
@@ -34,7 +43,8 @@ class TestEOLStudentProctoredExamAttempt(LoggedInTestCase):
     def test_eol_get_proctored_exam(self):
         """
             EOL MODIFICATION
-            Test and check if get proctored exam is returning the new attributes (content_id, block_types_filter, username)
+            Test and check if get proctored exam is returning the new attributes
+            (content_id, block_types_filter, username)
         """
         # Create an exam.
         proctored_exam = ProctoredExam.objects.create(

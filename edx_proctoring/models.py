@@ -315,7 +315,7 @@ class ProctoredExamStudentAttemptManager(models.Manager):
         """
         Returns the Student Exam Attempts for the given course_id filtered by search_by.
         """
-        # EOL: icontains 
+        # EOL: icontains
         filtered_query = Q(proctored_exam__course_id=course_id) & (
             Q(user__username__icontains=search_by) | Q(user__email__icontains=search_by)
         )
