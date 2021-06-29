@@ -102,6 +102,11 @@ edx = edx || {};
                     this.model.get('time_remaining_seconds') > 0 &&
                     this.model.get('attempt_status') !== 'error'
                 ) {
+            
+                    // Init seconds
+                    this.secondsToEnd = this.model.get('time_remaining_seconds');
+                    this.startSecond = Math.floor(new Date().getTime() / 1000);
+
                     // add callback on scroll event
                     $(window).bind('scroll', this.detectScroll);
 
@@ -123,9 +128,9 @@ edx = edx || {};
 
                     // Bind a click handler to the exam controls
                     self = this;
-                    $('.exam-button-turn-in-exam').click(function() {
-                        $(window).unbind('beforeunload', self.unloadMessage);
 
+                    $('.hide-exam-button-turn-in-exam').click(function() {
+                        $(window).unbind('beforeunload', self.unloadMessage);
                         $.ajax({
                             url: '/api/edx_proctoring/v1/proctored_exam/attempt/' + self.model.get('attempt_id'),
                             type: 'PUT',
@@ -139,6 +144,18 @@ edx = edx || {};
                             }
                         });
                     });
+
+                    // get student progress
+                    $('.eol-exam-button-turn-in-exam').click(function() {
+                        eol_proctored_exam_get_progress(
+                            self.model.get('username'),
+                            self.model.get('course_id'),
+                            self.model.get('content_id'),
+                            self.model.get('block_types_filter')
+                        );
+                    });
+                    // alert time remaining
+                    eol_proctored_exam_alertExamEnding(self.secondsToEnd);
                 } else {
                     // remove callback on scroll event
                     $(window).unbind('scroll', this.detectScroll);
@@ -158,7 +175,7 @@ edx = edx || {};
             var self = this;
             var pingInterval = self.model.get('ping_interval');
             self.timerTick += 1;
-            self.secondsLeft -= 1;
+            self.secondsLeft = self.startSecond + self.secondsToEnd - Math.floor(new Date().getTime() / 1000);
 
             // AED 2020-02-21:
             // If the learner is in a state where they've finished the exam
