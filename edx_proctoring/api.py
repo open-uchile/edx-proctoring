@@ -733,6 +733,7 @@ def get_exam_attempt_data(exam_id, attempt_id, is_learning_mfe=False):
 
     proctoring_settings = getattr(settings, 'PROCTORING_SETTINGS', {})
     low_threshold_pct = proctoring_settings.get('low_threshold_pct', .2)
+    block_types_filter = proctoring_settings.get('block_types_filter', '')
     critically_low_threshold_pct = proctoring_settings.get('critically_low_threshold_pct', .05)
 
     allowed_time_limit_mins = attempt.get('allowed_time_limit_mins') or 0
@@ -775,6 +776,8 @@ def get_exam_attempt_data(exam_id, attempt_id, is_learning_mfe=False):
             'edx_proctoring:proctored_exam.attempt',
             args=[attempt['id']]
         ),
+        'content_id': exam['content_id'],
+        'block_types_filter': block_types_filter
     }
 
     if provider:

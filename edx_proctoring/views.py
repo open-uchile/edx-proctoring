@@ -1346,6 +1346,7 @@ class StudentProctoredExamAttemptCollection(ProctoredAPIView):
             exam = exam_info['exam']
             attempt = exam_info['attempt']
             response_dict = get_exam_attempt_data(exam.get('id'), attempt.get('id'))
+            response_dict['username'] = request.user.username
 
         else:
             response_dict = {
