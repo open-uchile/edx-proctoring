@@ -1,3 +1,5 @@
+/* global eol_proctored_exam_get_progress */
+/* global eol_proctored_exam_alertExamEnding */
 edx = edx || {};
 
 (function(Backbone, $, _, gettext) {
@@ -102,7 +104,6 @@ edx = edx || {};
                     this.model.get('time_remaining_seconds') > 0 &&
                     this.model.get('attempt_status') !== 'error'
                 ) {
-            
                     // Init seconds
                     this.secondsToEnd = this.model.get('time_remaining_seconds');
                     this.startSecond = Math.floor(new Date().getTime() / 1000);
@@ -144,7 +145,6 @@ edx = edx || {};
                             }
                         });
                     });
-
                     // get student progress
                     $('.eol-exam-button-turn-in-exam').click(function() {
                         eol_proctored_exam_get_progress(
@@ -175,7 +175,7 @@ edx = edx || {};
             var self = this;
             var pingInterval = self.model.get('ping_interval');
             self.timerTick += 1;
-            self.secondsLeft = self.startSecond + self.secondsToEnd - Math.floor(new Date().getTime() / 1000);
+            self.secondsLeft = (self.startSecond + self.secondsToEnd) - Math.floor(new Date().getTime() / 1000);
 
             // AED 2020-02-21:
             // If the learner is in a state where they've finished the exam
