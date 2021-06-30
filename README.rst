@@ -6,7 +6,7 @@ EOL
     :alt: EolTests
 
 EOL Configuration
--------------
+-----------------
 
 To get the student progress on specific block types, in your lms.yml add the following::
 
