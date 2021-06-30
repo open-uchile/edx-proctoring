@@ -1,5 +1,13 @@
-/* global eol_proctored_exam_get_progress */
-/* global eol_proctored_exam_alertExamEnding */
+/* eslint-disable camelcase */
+/* eslint-disable no-use-before-define */
+/* eslint-disable vars-on-top */
+var eol = 0;
+if (typeof eol_proctored_exam_get_progress !== 'undefined') {
+    eol = 1;
+}
+var eol_proctored_exam_alertExamEnding = eol_proctored_exam_alertExamEnding || function() { 'use strict'; };
+var eol_proctored_exam_get_progress = eol_proctored_exam_get_progress || function() { 'use strict'; };
+
 edx = edx || {};
 
 (function(Backbone, $, _, gettext) {
@@ -104,10 +112,11 @@ edx = edx || {};
                     this.model.get('time_remaining_seconds') > 0 &&
                     this.model.get('attempt_status') !== 'error'
                 ) {
-                    // Init seconds
-                    this.secondsToEnd = this.model.get('time_remaining_seconds');
-                    this.startSecond = Math.floor(new Date().getTime() / 1000);
-
+                    if (eol === 1) {
+                        // Init seconds
+                        this.secondsToEnd = this.model.get('time_remaining_seconds');
+                        this.startSecond = Math.floor(new Date().getTime() / 1000);
+                    }
                     // add callback on scroll event
                     $(window).bind('scroll', this.detectScroll);
 
@@ -175,7 +184,11 @@ edx = edx || {};
             var self = this;
             var pingInterval = self.model.get('ping_interval');
             self.timerTick += 1;
-            self.secondsLeft = (self.startSecond + self.secondsToEnd) - Math.floor(new Date().getTime() / 1000);
+            if (eol === 1) {
+                self.secondsLeft = (self.startSecond + self.secondsToEnd) - Math.floor(new Date().getTime() / 1000);
+            } else {
+                self.secondsLeft -= 1;
+            }
 
             // AED 2020-02-21:
             // If the learner is in a state where they've finished the exam
