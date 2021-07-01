@@ -55,10 +55,3 @@ jobs:
       env:
         TOXENV: ${{ matrix.toxenv }}
       run: tox
-
-    - name: Run Coverage
-      if: matrix.toxenv == 'django22-drf310' || matrix.toxenv == 'django22-drflatest'
-      uses: codecov/codecov-action@v1
-      with:
-        flags: unittests
-        fail_ci_if_error: true
