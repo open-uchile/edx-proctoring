@@ -202,6 +202,7 @@ class SoftwareSecureBackendProvider(ProctoringBackendProvider):
                     chr(block_size - len(text) % block_size)).encode('utf-8')
         cipher = DES3.new(key, DES3.MODE_ECB)
         encrypted_text = cipher.encrypt(pad(pwd))
+        log.info('_encrypt_password: ' + base64.b64encode(encrypted_text).decode('ascii'))
         return base64.b64encode(encrypted_text).decode('ascii')
 
     def _split_fullname(self, full_name):
@@ -223,6 +224,7 @@ class SoftwareSecureBackendProvider(ProctoringBackendProvider):
         """
 
         attempt_code = context['attempt_code']
+        log.info('attempt_code: ' + attempt_code)
         time_limit_mins = context['time_limit_mins']
         is_sample_attempt = context['is_sample_attempt']
         full_name = context['full_name']
