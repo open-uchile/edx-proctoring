@@ -69,7 +69,10 @@ class SoftwareSecureBackendProvider(ProctoringBackendProvider):
             exam,
             context
         )
-
+        log.info('data payload')
+        log.info(data)
+        log.info('url api')
+        log.info(self.exam_register_endpoint)
         headers = {
             "Content-Type": 'application/json'
         }
