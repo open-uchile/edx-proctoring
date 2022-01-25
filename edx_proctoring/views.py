@@ -927,11 +927,14 @@ class ProctoredExamReviewCallback(ProctoredAPIView, BaseReviewCallback):
                 )
             )
             raise StudentExamAttemptDoesNotExistsException(err_msg)
-        if request.user.has_perm('edx_proctoring.can_review_attempt', attempt):
-            self.make_review(attempt, request.data)
-            resp = Response(data='OK')
-        else:
-            resp = Response(status=403)
+        # [Proctortrack] 
+        # if request.user.has_perm('edx_proctoring.can_review_attempt', attempt):
+        #     self.make_review(attempt, request.data)
+        #     resp = Response(data='OK')
+        # else:
+        #     resp = Response(status=403)
+        self.make_review(attempt, request.data)
+        resp = Response(data='OK')
         return resp
 
 
