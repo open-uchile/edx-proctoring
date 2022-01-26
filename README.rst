@@ -1,8 +1,8 @@
 EOL
 ==============
 
-.. image:: https://github.com/eol-uchile/edx-proctoring/workflows/Python%20application/badge.svg
-    :target: https://github.com/eol-uchile/edx-proctoring/actions
+.. image:: https://github.com/open-uchile/edx-proctoring/workflows/Python%20application/badge.svg
+    :target: https://github.com/open-uchile/edx-proctoring/actions
     :alt: EolTests
 
 EOL Configuration
