@@ -129,7 +129,8 @@ edx = edx || {};
                     // Bind a click handler to the exam controls
                     self = this;
 
-                    $('.hide-exam-button-turn-in-exam').click(function() {
+                    // $('.hide-exam-button-turn-in-exam').click(function() {
+                    $('.exam-button-turn-in-exam').click(function() {
                         $(window).unbind('beforeunload', self.unloadMessage);
                         $.ajax({
                             url: '/api/edx_proctoring/v1/proctored_exam/attempt/' + self.model.get('attempt_id'),
@@ -145,17 +146,17 @@ edx = edx || {};
                         });
                     });
 
-                    // get student progress
-                    $('.eol-exam-button-turn-in-exam').click(function() {
-                        eol_proctored_exam_get_progress(
-                            self.model.get('username'),
-                            self.model.get('course_id'),
-                            self.model.get('content_id'),
-                            self.model.get('block_types_filter')
-                        );
-                    });
-                    // alert time remaining
-                    eol_proctored_exam_alertExamEnding(self.secondsToEnd);
+                    // // get student progress
+                    // $('.eol-exam-button-turn-in-exam').click(function() {
+                    //     eol_proctored_exam_get_progress(
+                    //         self.model.get('username'),
+                    //         self.model.get('course_id'),
+                    //         self.model.get('content_id'),
+                    //         self.model.get('block_types_filter')
+                    //     );
+                    // });
+                    // // alert time remaining
+                    // eol_proctored_exam_alertExamEnding(self.secondsToEnd);
                 } else {
                     // remove callback on scroll event
                     $(window).unbind('scroll', this.detectScroll);
