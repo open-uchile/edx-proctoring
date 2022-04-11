@@ -135,7 +135,8 @@ edx = edx || {};
         var $this = $(this);
         var actionUrl = $this.data('change-state-url');
         var action = $this.data('action');
-        var shouldUseWorker = window.Worker && edx.courseware.proctored_exam.configuredWorkerURL;
+        var shouldUseWorker = false;
+        //var shouldUseWorker = window.Worker && edx.courseware.proctored_exam.configuredWorkerURL;
 
         e.preventDefault();
         e.stopPropagation();
@@ -171,9 +172,8 @@ edx = edx || {};
         var $this = $(this);
         var actionUrl = $this.data('change-state-url');
         var action = $this.data('action');
-        var shouldUseWorker = window.Worker &&
-                          edx.courseware.proctored_exam.configuredWorkerURL &&
-                          action === 'submit';
+        var shouldUseWorker = false;
+        //var shouldUseWorker = window.Worker && edx.courseware.proctored_exam.configuredWorkerURL && action === 'submit';
         $(window).unbind('beforeunload');
 
         setActionButtonLoadingState($this);
@@ -217,8 +217,8 @@ edx = edx || {};
         });
     };
     edx.courseware.proctored_exam.endExam = function(attemptStatusPollURL) {
-        var shouldUseWorker = window.Worker &&
-                          edx.courseware.proctored_exam.configuredWorkerURL;
+        var shouldUseWorker = false;
+        //var shouldUseWorker = window.Worker && edx.courseware.proctored_exam.configuredWorkerURL;
         if (shouldUseWorker) {
             // todo would like to double-check the exam is ended on the LMS before proceeding
             return edx.courseware.proctored_exam.checkExamAttemptStatus(attemptStatusPollURL)
